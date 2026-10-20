@@ -1,0 +1,5 @@
+PySide6-Essentials>=6.6
+msal>=1.28
+minecraft-launcher-lib>=6.0
+requests
+Pillow
