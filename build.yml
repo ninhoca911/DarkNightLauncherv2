@@ -1,0 +1,32 @@
+
+name: Compilar .exe
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r MeuLauncher/requirements.txt pyinstaller
+
+      - name: Compilar
+        run: python MeuLauncher/build_exe.py
+
+      - name: Guardar o .exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: MeuLauncher-exe
+          path: MeuLauncher/dist/*.exe
